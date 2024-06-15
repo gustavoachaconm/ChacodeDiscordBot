@@ -6,18 +6,18 @@ const {
   
   module.exports = {
     data: new SlashCommandBuilder()
-      .setName("kick")
-      .setDescription("Expulsa a un miembro del servidor.")
+      .setName("ban")
+      .setDescription("Banea a un miembro del servidor.")
       .addUserOption((option) =>
         option
           .setName("usuario")
-          .setDescription("El usuario a expulsar.")
+          .setDescription("El usuario a banear.")
           .setRequired(true)
       )
       .addStringOption((option) =>
         option
           .setName("razón")
-          .setDescription("La razón de la expulsión.")
+          .setDescription("La razón del baneo.")
           .setRequired(false)
       ),
     async execute(interaction) {
@@ -25,10 +25,10 @@ const {
       const reason = interaction.options.getString("razón") || "No especificada";
   
       if (
-        !interaction.member.permissions.has(PermissionsBitField.Flags.KickMembers)
+        !interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)
       ) {
         return interaction.reply({
-          content: "No tienes permisos para expulsar miembros.",
+          content: "No tienes permisos para bannear miembros.",
           ephemeral: true,
         });
       }
@@ -42,12 +42,12 @@ const {
   
       if (!member.kickable) {
         return interaction.reply({
-          content: "No puedo expulsar a este usuario.",
+          content: "No puedo bannear a este usuario.",
           ephemeral: true,
         });
       }
   
-      await member.kick(reason);
+      await member.ban(reason);
   
       const logChannelId = "1251180769716469812";// Reemplaza esto con el ID del canal de logs
       const channel = interaction.guild.channels.cache.get(logChannelId);
@@ -55,7 +55,7 @@ const {
       if (channel) {
         const embed = new EmbedBuilder()
           .setColor("#ff9900")
-          .setTitle("Miembro Expulsado")
+          .setTitle("Miembro Baneado")
           .addFields(
             {
               name: "Usuario",
@@ -77,7 +77,7 @@ const {
       }
   
       await interaction.reply({
-        content: `El usuario ${member.user.tag} ha sido expulsado.`,
+        content: `El usuario ${member.user.tag} ha sido Baneado.`,
         ephemeral: true,
       });
     },
