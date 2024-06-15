@@ -49,7 +49,7 @@ module.exports = {
 
     await member.kick(reason);
 
-    const logChannelId = "1251180769716469812"; // Reemplaza esto con el ID del canal de logs
+    const logChannelId = "ID_DEL_CANAL_DE_LOGS"; // Reemplaza esto con el ID del canal de logs
     const channel = interaction.guild.channels.cache.get(logChannelId);
 
     if (channel) {
