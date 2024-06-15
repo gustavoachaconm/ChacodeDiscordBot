@@ -40,7 +40,7 @@ const {
         });
       }
   
-      if (!member.kickable) {
+      if (!member.bannable) {
         return interaction.reply({
           content: "No puedo bannear a este usuario.",
           ephemeral: true,
