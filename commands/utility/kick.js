@@ -2,6 +2,9 @@ const {
   SlashCommandBuilder,
   EmbedBuilder,
   PermissionsBitField,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
 } = require("discord.js");
 
 module.exports = {
