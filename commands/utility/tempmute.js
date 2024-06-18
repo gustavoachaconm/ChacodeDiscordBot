@@ -68,6 +68,23 @@ module.exports = {
     }
 
     await member.roles.add(mutedRole);
+     // Mensaje de log en el canal de logs
+    const logChannelId = '1251180769716469812'; // ID del canal de logs
+    const channel = interaction.guild.channels.cache.get(logChannelId);
+    if (channel) {
+      const embedLog = new EmbedBuilder()
+        .setColor('#00ff00')
+        .setTitle('Usuario Muteado')
+        .addFields(
+          { name: 'Usuario', value: `${member.user.tag} (${member.id})`, inline: true },
+          { name: 'Moderador', value: `${interaction.user.tag} (${interaction.user.id})`, inline: true },
+          { name: 'Razón', value: reason, inline: false },
+          { name: 'Fecha', value: new Date().toLocaleString(), inline: false }
+        )
+        .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
+        .setTimestamp();
+      await channel.send({ embeds: [embedLog] });
+    }
 
     // Enviar mensaje privado al usuario baneado
     if (sendPrivateMessage) {
